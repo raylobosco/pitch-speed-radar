@@ -8,15 +8,15 @@ A professional-grade, browser-based baseball radar gun using Computer Vision and
 - **Environment Intelligence:** Auto-detects lighting conditions (Day/Night) or allows manual selection (Indoor/Overcast).
 - **Perspective Correction:** Adjustable camera offset to maintain accuracy when not standing directly behind the catcher.
 - **PWA Ready:** Installable on any smartphone for a native-like experience.
+- **Robust Caching:** Service worker implemented for offline reliability with automated cache invalidation.
 
-## Deployment
-This app is designed for Firebase Hosting.
+## Live Deployment
+The application is live at: [https://fastball-f438c.web.app](https://fastball-f438c.web.app)
 
-1. Install Firebase CLI: `npm install -g firebase-tools`
-2. Login: `firebase login`
-3. Deploy: `firebase deploy`
-
-## Local Development
+## Local Development & Deployment
 1. Clone the repository.
 2. Open in any modern web browser (requires camera permissions).
-3. No build step required (Standalone PWA).
+3. To deploy to Firebase:
+   - Install Firebase CLI: `npm install -g firebase-tools`
+   - Login: `firebase login`
+   - Deploy: `firebase deploy`
