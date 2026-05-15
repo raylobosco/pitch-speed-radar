@@ -153,22 +153,33 @@ const App = () => {
         motionBufferRef.current.push(currentMotion);
         if (motionBufferRef.current.length > 8) motionBufferRef.current.shift();
 
-        if (motionBufferRef.current.length >= 6 && !isTiming) {
+        // HIGH-PRECISION MODE: Increased requirements for linearity and count
+        if (motionBufferRef.current.length >= 8 && !isTiming) {
             const first = motionBufferRef.current[0];
-            const mid = motionBufferRef.current[3];
+            const mid = motionBufferRef.current[4];
             const last = motionBufferRef.current[motionBufferRef.current.length - 1];
+            
+            // Validate Linear Path: Calculate slope change (must be minimal)
             const dx1 = mid.x - first.x; const dy1 = mid.y - first.y;
             const dx2 = last.x - mid.x; const dy2 = last.y - mid.y;
-            const isLinear = (Math.sign(dx1) === Math.sign(dx2)) && (Math.sign(dy1) === Math.sign(dy2));
+            
+            // Check for significant deviation (High-Precision requirement)
+            const angle1 = Math.atan2(dy1, dx1);
+            const angle2 = Math.atan2(dy2, dx2);
+            const angleDiff = Math.abs(angle1 - angle2);
+            
+            // Velocity check: ensure movement is fast enough to be a pitch
             const totalDx = last.x - first.x; const totalDy = last.y - first.y;
             const dt = last.time - first.time;
             const velocity = Math.sqrt(totalDx*totalDx + totalDy*totalDy) / dt;
 
-            if (velocity > 0.8 && isLinear) {
+            // Strict requirements: angle deviation < 0.2 rad, velocity > 1.2 px/ms
+            if (velocity > 1.2 && angleDiff < 0.2) {
                 startTimeRef.current = first.time;
                 setIsTiming(true);
                 flightPathRef.current = [{ x, y, t: time }];
                 setStatus("PITCH DETECTED!");
+                beep(880, 0.1); // Precision beep
                 motionBufferRef.current = [];
             }
         }
