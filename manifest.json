@@ -1,13 +1,13 @@
 {
-  "name": "PitchSpeed Pro",
-  "short_name": "PitchSpeed",
-  "start_url": "./index.html",
+  "name": "Radar Pro",
+  "short_name": "RadarPro",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3233/3233514.png",
+      "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
